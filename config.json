@@ -1,0 +1,7 @@
+{
+  "dbUrl": "mongodb://localhost:27017",
+  "dbName": "personalPage",
+  "colAboutGs": "aboutGs",
+  "colAboutProjects": "aboutProjects",
+  "port": 3000
+}
