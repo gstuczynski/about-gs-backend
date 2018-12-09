@@ -2,6 +2,7 @@ const express = require("express");
 const { MongoClient } = require("mongodb");
 const bodyParser = require("body-parser");
 const config = require("./config");
+const content = require("./content");
 
 const app = express();
 
@@ -17,15 +18,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/about-gs", (req, res) => {
-  const col = mongoClient.db(dbName).collection(colAboutGs);
-  col.find().toArray((err, items) => {
-    if (err) {
-      res.status(500).send({ message: "couldn't get data" });
-      console.error("couldn't get data: ", err);
-      return;
-    }
-    res.send(items[0].content);
-  });
+  const bio = content.bio;
+
+  res.send(bio);
+});
+
+app.get("/home", (req, res) => {
+  const homeText = content.homeText;
+  res.send(homeText);
 });
 
 app.get("/about-projects", (req, res) => {
