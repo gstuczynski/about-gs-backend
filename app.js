@@ -3,12 +3,12 @@ const { MongoClient } = require("mongodb");
 const bodyParser = require("body-parser");
 const config = require("./config");
 const content = require("./content");
-
+const secretConfig = require("./secret_config");
+const nodemailer = require("nodemailer");
+const _ = require("underscore");
 const app = express();
-
 const url = config.dbUrl;
 const dbName = config.dbName;
-const colAboutGs = config.colAboutGs;
 const colAboutProjects = config.colAboutProjects;
 const appPort = config.port;
 
@@ -17,6 +17,8 @@ let mongoClient;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+let transporter = nodemailer.createTransport(secretConfig.transporterConfig);
+
 app.get("/about-gs", (req, res) => {
   const bio = content.bio;
 
@@ -24,7 +26,7 @@ app.get("/about-gs", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
-  const homeText = content.homeText;
+  const homeText = content.home;
   res.send(homeText);
 });
 
@@ -52,6 +54,21 @@ app.get("/asset", (req, res) => {
       console.error("couldn't get data: ", err);
     }
   });
+});
+
+app.post("/sendFeedback", (req, res) => {
+  let mailOptions = _.extend(secretConfig.mailOptions, {
+    html: req.body.feedbackText
+  });
+  transporter
+    .sendMail(mailOptions)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    });
 });
 
 MongoClient.connect(
