@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
+const getToken = require("../utils/authHealper").getToken;
 
 exports.duposer = (req, res) => {
   bcrypt.hash("test", 12).then(hashedPass => {
@@ -21,14 +22,14 @@ exports.postLogin = (req, res) => {
       .compare(password, user.password)
       .then(doMatch => {
         if (doMatch) {
-          req.session.isLoggedIn = true;
-          req.session.user = user;
-          return req.session.save(err => {
-            console.log(err);
-            return res.send("gonwwwo");
+          const token = getToken(user.toJSON());
+          console.log("ss", token);
+          res.json({
+            token
           });
+        } else {
+          res.status(403).send("Wrong password");
         }
-        return res.send("Topsze");
       })
       .catch(err => {
         console.log(err);
@@ -39,6 +40,6 @@ exports.postLogin = (req, res) => {
 exports.postLogout = (req, res, next) => {
   req.session.destroy(err => {
     console.log(err);
-    res.send('logout')
+    res.send("logout");
   });
 };

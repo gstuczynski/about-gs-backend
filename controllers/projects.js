@@ -15,3 +15,21 @@ exports.getAboutProjectsInfo = (req, res) => {
       console.log(err);
     });
 };
+
+exports.updateProject = (req, res) => {
+  console.log(req.body);
+  const { id, text, url, image, openInModal } = req.body;
+  Project.findById(id)
+    .then(project => {
+      project.text = text;
+      project.url = url;
+      project.image = image;
+      project.openInModal = openInModal;
+      return project.save();
+    })
+    .then(result => {
+      res.send(200);
+      console.log("UPDATED PRODUCT!");
+    })
+    .catch(err => console.log(err));
+};

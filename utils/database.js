@@ -6,7 +6,7 @@ const dbUrl = require("../config").dbUrl;
 
 let _db;
 
-console.log(dbName,dbUrl)
+console.log(dbName, dbUrl);
 
 const mongoConnect = callback => {
   MongoClient.connect(dbUrl)
