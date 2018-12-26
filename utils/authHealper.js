@@ -9,7 +9,6 @@ exports.verifyToken = (req, res, next) => {
   jwt.verify(token, "secret", (err, authData) => {
     if (!err) {
       next();
-      res.sendStatus(200);
     }
     res.sendStatus(403);
     console.log(err);

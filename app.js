@@ -12,7 +12,6 @@ const sessionStore = new MongoDBStore({
 });
 const appPort = config.port;
 
-const homeRouter = require("./routes/home");
 const infoRouter = require("./routes/info");
 const assetsRouter = require("./routes/assets");
 const feedbackRouter = require("./routes/feedback");
@@ -29,7 +28,6 @@ app.use(
   })
 );
 
-app.use(homeRouter);
 app.use("/info", infoRouter);
 app.use(assetsRouter);
 app.use(feedbackRouter);
