@@ -10,7 +10,6 @@ exports.verifyToken = (req, res, next) => {
     if (!err) {
       next();
     }
-    res.sendStatus(403);
     console.log(err);
   });
 };

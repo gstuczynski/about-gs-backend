@@ -12,15 +12,16 @@ exports.getHomeContent = (req, res) => {
 };
 
 exports.updateHomeContent = (req, res) => {
-  const { text } = req.body;
+  const { welcomeText, feedbackText } = req.body;
   homeContent
     .findOne()
     .then(content => {
-      content.text = text;
+      if (welcomeText) content.welcomeText = welcomeText;
+      if (feedbackText) content.feedbackText = feedbackText;
       return content.save();
     })
     .then(result => {
-      res.status(200).send('updated');
+      res.status(200).send("updated");
     })
     .catch(err => console.log(err));
 };

@@ -1,12 +1,6 @@
 const Project = require("../models/project");
 
 exports.getAboutProjectsInfo = (req, res) => {
-  // new Project({
-  //   text: "dupa",
-  //   url: "dupasadasdas",
-  //   image: "xxx",
-  //   openInModal: true
-  // }).save();
   Project.find()
     .then(projects => {
       res.send(projects);
@@ -18,13 +12,14 @@ exports.getAboutProjectsInfo = (req, res) => {
 
 exports.updateProject = (req, res) => {
   console.log(req.body);
-  const { id, text, url, image, openInModal } = req.body;
+  const { id, text, url, image, openInModal, mobileUrl } = req.body;
   Project.findById(id)
     .then(project => {
       project.text = text;
       project.url = url;
       project.image = image;
       project.openInModal = openInModal;
+      project.mobileUrl = mobileUrl;
       return project.save();
     })
     .then(result => {

@@ -8,6 +8,7 @@ let transporter = nodemailer.createTransport(secretConfig.transporterConfig);
 const router = express.Router();
 
 router.post("/sendFeedback", (req, res) => {
+  console.log(secretConfig.transporterConfig);
   let mailOptions = _.extend(secretConfig.mailOptions, {
     html: req.body.feedbackText
   });

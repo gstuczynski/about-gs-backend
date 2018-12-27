@@ -18,6 +18,9 @@ const projectSchema = new Schema({
   openInModal: {
     type: Boolean,
     required: true
+  },
+  mobileUrl: {
+    type: String
   }
 });
 

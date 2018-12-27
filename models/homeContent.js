@@ -3,9 +3,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const HomeContentSchema = new Schema({
-  text: {
-    type: String,
-    required: true
+  welcomeText: {
+    type: String
+  },
+  feedbackText: {
+    type: String
   }
 });
 
