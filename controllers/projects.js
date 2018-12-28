@@ -12,7 +12,7 @@ exports.getAboutProjectsInfo = (req, res) => {
 
 exports.updateProject = (req, res) => {
   console.log(req.body);
-  const { id, text, url, image, openInModal, mobileUrl } = req.body;
+  const { id, text, url, image, openInModal, mobileUrl, repos } = req.body;
   Project.findById(id)
     .then(project => {
       project.text = text;
@@ -20,6 +20,7 @@ exports.updateProject = (req, res) => {
       project.image = image;
       project.openInModal = openInModal;
       project.mobileUrl = mobileUrl;
+      project.repos = repos ? repos.split(",") : [];
       return project.save();
     })
     .then(result => {

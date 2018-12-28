@@ -21,6 +21,9 @@ const projectSchema = new Schema({
   },
   mobileUrl: {
     type: String
+  },
+  repos: {
+    type: Array
   }
 });
 
