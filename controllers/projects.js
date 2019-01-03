@@ -25,7 +25,7 @@ exports.updateProject = (req, res) => {
     })
     .then(result => {
       res.send(200);
-      console.log("UPDATED PRODUCT!");
+      console.log("UPDATED Project!");
     })
     .catch(err => console.log(err));
 };
